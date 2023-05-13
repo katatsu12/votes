@@ -1,13 +1,18 @@
 <script>
 	import Modal from "./components/Modal.svelte";
 
-	export let name = 'Den';
+	export let name = 'Mystery';
+	let showModal = false;
+
+	function validName(e) {
+		if (e.target.value === 'Den') { showModal = true }
+	}
 </script>
 
-<Modal />
+<Modal showModal={showModal}/>
 <main>
 	<h1>Hello {name}!</h1>
-	<input type="text" bind:value={name} >
+	<input type="text" bind:value={name} on:input={(e) => validName(e)}>
 </main>
 
 <style>

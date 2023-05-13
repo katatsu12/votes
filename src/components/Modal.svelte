@@ -1,11 +1,15 @@
 <script>
-	let showModal = true;	
+	export let showModal;	
+
+	function closeModal() {
+		showModal = false;
+	};
 </script>
 
 {#if showModal}
-	<div class="backdrop">
+	<div class="backdrop" on:click={closeModal}>
 		<div class="modal">
-			<p>Hello from modal</p>
+			<p>Nice!!!</p>
 		</div>
 	</div>
 {/if}
