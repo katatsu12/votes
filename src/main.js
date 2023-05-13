@@ -1,11 +1,7 @@
 import App from './App.svelte';
-import Loop from './Loop.svelte';
 
 const app = new App({
-	target: document.body,
-	props: {
-		name: 'World'
-	}
+	target: document.body
 });
 
 export default app;

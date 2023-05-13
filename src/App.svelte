@@ -1,17 +1,13 @@
 <script>
+	import Modal from "./components/Modal.svelte";
+
 	export let name = 'Den';
-	let people = [{ name: 'John', age: 21 }, { name: 'Bob', age: 21 }, { name: 'Jame', age: 30 }];
 </script>
 
+<Modal />
 <main>
 	<h1>Hello {name}!</h1>
 	<input type="text" bind:value={name} >
-
-	<ul>
-		{#each people as person}
-			<li>{person.name}: {person.age}</li>
-		{/each}
-    </ul>
 </main>
 
 <style>
