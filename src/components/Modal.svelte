@@ -1,15 +1,11 @@
 <script>
-	export let showModal;	
-
-	function closeModal() {
-		showModal = false;
-	};
+	export let showModal = false;	
 </script>
 
 {#if showModal}
-	<div class="backdrop" on:click={closeModal}>
+	<div class="backdrop" on:click|self>
 		<div class="modal">
-			<p>Nice!!!</p>
+      <slot />
 		</div>
 	</div>
 {/if}
