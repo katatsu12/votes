@@ -1,11 +1,24 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+	import Tabs from "./shared/Tabs.svelte";
+
+	let items = ['Current Vote', 'All Votes'];
+	let activeItem = 'Current Vote'
+
+	const tabSwitch = (e) => {
+		activeItem = e.detail;
+	}
 </script>
 
 <Header />
 <main>
-	<p>Lorem ipsum dolor sit amen consectetur adipisicing elit. Saepe itaque delectus rem, fugit cupiditate aliquid at nam unde nihil, ut debitis quisquam eum porro eligendi esse officiis exercitationem. Officiis, et?</p>
+  <Tabs {items} {activeItem} on:tabSwitch={tabSwitch} />
+	{#if activeItem == 'Current Vote'}
+		<p>Current Vote</p>
+	{:else if activeItem == 'All Votes'}
+		<p>All Votes</p>
+	{/if}
 </main>
 <Footer />
 
