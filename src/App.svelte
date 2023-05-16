@@ -2,9 +2,10 @@
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
 	import Tabs from "./shared/Tabs.svelte";
+	import CreateVoteForm from "./components/CreateVoteForm.svelte";
 
 	let items = ['Current Vote', 'All Votes'];
-	let activeItem = 'Current Vote'
+	let activeItem = 'All Votes'
 
 	const tabSwitch = (e) => {
 		activeItem = e.detail;
@@ -17,7 +18,7 @@
 	{#if activeItem == 'Current Vote'}
 		<p>Current Vote</p>
 	{:else if activeItem == 'All Votes'}
-		<p>All Votes</p>
+		<CreateVoteForm />
 	{/if}
 </main>
 <Footer />
@@ -26,5 +27,9 @@
 	main {
 		max-width: 70vw;
 		margin: 40px auto;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		flex-direction: column;
 	}
 </style>

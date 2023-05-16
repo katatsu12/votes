@@ -32,6 +32,8 @@
   
   .tabs {
     margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
   }
 
   .active { 
