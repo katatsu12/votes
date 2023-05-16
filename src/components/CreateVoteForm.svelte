@@ -1,4 +1,6 @@
 <script>
+  import Button from "../shared/Button.svelte";
+
   let fields = {}
 
   function onSubmit(e) {
@@ -10,10 +12,13 @@
       data[key] = value;
     }
     fields = data;
+    console.log(fields);
   }
 
-  function addOption() {
-    let fields = this.form.getElementsByClassName('form-field')
+  function addOption(e) {
+    e.preventDefault();
+
+    let fields = e.target.form.getElementsByClassName('form-field')
     let lastField = fields[fields.length - 1].cloneNode(true);
     let label = lastField.firstChild
     let input = lastField.lastChild
@@ -33,7 +38,7 @@
   <div class="form-group">
     <div class="form-field">
       <label for="question">Vote Question:</label>
-      <input type="text" id="question" name="question" />
+      <input type="text" id="question" name="question" required />
     </div>
     <div id="options-group">
       <div class="form-field">
@@ -42,8 +47,8 @@
       </div>
     </div>
     <div class="actions">
-      <button type="button" on:click={addOption}>Add option</button>
-      <button type="submit">Submit</button>
+      <Button on:click={(e) => addOption(e)}>Add Option</Button>
+      <Button>Add Vote</Button>
     </div>
   </div>
 </form>
@@ -73,5 +78,11 @@
 
   .form-group {
     width: 60%;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
   }
 </style>
