@@ -7,38 +7,38 @@
 </script>
 
 <div class="tabs">
-  <ul>
-    {#each items as item}
-      <li on:click={() => dispatch('tabSwitch', item)}>
-        <div class:active={item === activeItem}>{item}</div>
-      </li>
-    {/each}
-  </ul>
+  {#each items as item}
+    <button on:click={() => dispatch('tabSwitch', item)}>
+      <div class:active={item === activeItem}>{item}</div>
+    </button>
+  {/each}
 </div>
 
 <style>
-  ul {
+  .tabs {
     display: flex;
-    justify-content: canter;
+    justify-content: center;
     padding: 0;
     list-style-type: none;
   }
 
-  li {
-    margin: 0 16px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .tabs {
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: center;
+  .active { 
+    border-bottom: 2px solid;
   }
 
-  .active { 
-    color: red;
-    border-bottom: 2px solid red;
-    padding-bottom: 8px;
+  button {
+    margin: 0 16px;
+    font-size: 18px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  
+  button:active {
+    background-color: unset;
   }
 </style>

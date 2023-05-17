@@ -1,7 +1,9 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import Button from "../shared/Button.svelte";
 
-  let fields = {}
+  let fields = {};
+  let dispatch = createEventDispatcher();
 
   function onSubmit(e) {
     const formData = new FormData(e.target);
@@ -11,26 +13,30 @@
       const [key, value] = field;
       data[key] = value;
     }
-    fields = data;
+    fields = { votes: 0, id: Math.random(), ...data };
+    dispatch("add", fields);
     console.log(fields);
   }
 
   function addOption(e) {
     e.preventDefault();
 
-    let fields = e.target.form.getElementsByClassName('form-field')
+    let fields = e.target.form.getElementsByClassName("form-field");
     let lastField = fields[fields.length - 1].cloneNode(true);
-    let label = lastField.firstChild
-    let input = lastField.lastChild
-    let id = parseInt(input.dataset.id) + 1
-    
-    label.innerText = `Option ${id}:`
-    label.setAttribute("for", `option-${id}`)
-    input.dataset.id = id
-    input.setAttribute("name", `option-${id}`)
-    input.setAttribute("id", `option-${id}`)
+    let label = lastField.firstChild;
+    let input = lastField.lastChild;
+    // TODO: refactor this id value
+    let id = parseInt(input.dataset.id) + 1;
 
-    document.getElementById('options-group').innerHTML += `<div class='form-field'>${lastField.innerHTML}</div>`
+    label.innerText = `Option ${id}:`;
+    label.setAttribute("for", `option-${id}`);
+    input.dataset.id = id;
+    input.setAttribute("name", `option-${id}`);
+    input.setAttribute("id", `option-${id}`);
+
+    document.getElementById(
+      "options-group"
+    ).innerHTML += `<div class='form-field'>${lastField.innerHTML}</div>`;
   }
 </script>
 

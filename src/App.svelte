@@ -1,24 +1,41 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+	import VoteList from "./components/VoteList.svelte";
 	import Tabs from "./shared/Tabs.svelte";
 	import CreateVoteForm from "./components/CreateVoteForm.svelte";
 
 	let items = ['Current Vote', 'All Votes'];
-	let activeItem = 'All Votes'
+	let activeItem = 'Current Vote';
 
 	const tabSwitch = (e) => {
 		activeItem = e.detail;
 	}
+
+	let votes = [
+		{
+			id: 1,
+      question: 'Vote 1',
+      option: 'Vote 1 description',
+			points: 10
+		}
+	]
+
+	const handleSubmit = (e) => {
+		let vote = e.detail
+		votes = [vote, ...votes]
+		activeItem = 'Current Vote'
+		console.log(votes)
+	}
 </script>
 
 <Header />
+<Tabs {items} {activeItem} on:tabSwitch={tabSwitch} />
 <main>
-  <Tabs {items} {activeItem} on:tabSwitch={tabSwitch} />
 	{#if activeItem == 'Current Vote'}
-		<p>Current Vote</p>
+		<VoteList {votes} />
 	{:else if activeItem == 'All Votes'}
-		<CreateVoteForm />
+		<CreateVoteForm on:add={handleSubmit} />
 	{/if}
 </main>
 <Footer />
@@ -31,5 +48,6 @@
 		justify-content: center;
 		text-align: center;
 		flex-direction: column;
+		min-height: calc(100vh - 310px);
 	}
 </style>
