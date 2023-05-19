@@ -16,8 +16,11 @@
 		{
 			id: 1,
       question: 'Vote 1',
-      option: 'Vote 1 description',
-			points: 10
+      options: [
+				{ title: 'Vote 1 description', points: 0 }, 
+				{ title: 'Vote 2 desc', points: 10 }, 
+				{ title: 'Vote 3 desc', points: 20 }
+			]
 		}
 	]
 
