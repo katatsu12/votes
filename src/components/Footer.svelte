@@ -1,6 +1,8 @@
 <footer>
   <div class="links">
     <a target="_blank" href="https://github.com/katatsu12">GitHub</a>
+    <a target="_blank" href="mailto:katatsu12@gmail.com">Email me</a>
+    <a target="_blank" href="https://www.linkedin.com/in/den-zubritskiy-97aa38169/">LinkedIn</a>
   </div>
 </footer>
 
@@ -14,5 +16,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
   }
 </style>
