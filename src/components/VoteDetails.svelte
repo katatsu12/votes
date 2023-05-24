@@ -1,18 +1,33 @@
 <script>
   export let vote;
-  let progressValue = "0%";
+  let percentageProgress = {}
+  let modifyBy = 5;
 
-  const progressPercent = (option) => {
+  const progressPercentages = () => {
     let points = vote.options.map(option => option.points)
-    let sum = points.reduce((acc, current) => acc + current, 0);
-    return option.points / sum;
-  };
+    let newValue = {}
+    vote.options.forEach(option => {
+      let sum = points.reduce((acc, current) => acc + current, 0);
 
-  const pointsManage = (action) => {
+      option['progress'] = (option.points / sum) * 100
+      newValue[option.id] = option.progress
+    });
+    percentageProgress = newValue
+  };
+  progressPercentages();
+
+  const pointsManage = (e, action) => {
+    let progressElement = e.target.parentElement.querySelector('.progress')
+    let optionId = e.target.parentElement.dataset['optionId']
+
     if (action === "increase") {
-      console.log('asd')
+      let option = vote.options.find(option => option.id == optionId);
+      option.points = option.points + modifyBy;
+      progressPercentages();
     } else if (action === "decrease") {
-      console.log('asd2')
+      let option = vote.options.find(option => option.id == optionId);
+      option.points = option.points - modifyBy;
+      progressPercentages();
     }
   };
 </script>
@@ -22,13 +37,13 @@
   <div class="options">
     {#each vote.options as option}
       <p>{option.title}</p>
-      <div class="option">
-        <button on:click={() => pointsManage("decrease")}>-</button>
+      <div class="option" data-option-id={option.id}>
+        <button on:click={(e) => pointsManage(e, "decrease")}>-</button>
         <div class="progress">
           <p>{option.points}</p>
-          <div class="bar" style="width: {progressPercent(option)}" on:load={progressPercent(option)} />
+          <div class="bar" style="width: {`${percentageProgress[option.id]}%`}" />
         </div>
-        <button on:click={() => pointsManage("increase")}>+</button>
+        <button on:click={(e) => pointsManage(e, "increase")}>+</button>
       </div>
     {/each}
   </div>
