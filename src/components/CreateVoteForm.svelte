@@ -19,7 +19,7 @@
       if (key.includes('option')) {
         let option = {};
 
-        option['id'] = key.match(/-(\d+)/)[1];
+        option['id'] = parseInt(key.match(/-(\d+)/)[1]);
         option['title'] = value;
         option['points'] = 0;
         options.push(option);

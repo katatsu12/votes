@@ -2,7 +2,6 @@
   import { createEventDispatcher } from "svelte";
 
   export let vote;
-  let points = vote.options.map((option) => option.points);
   let percentageProgress = {};
 
   const dispatch = createEventDispatcher();
@@ -11,10 +10,12 @@
 
   const progressPercentages = () => {
     let newValue = {};
+
     vote.options.forEach((option) => {
+      let points = vote.options.map((option) => option.points);
       let sum = points.reduce((acc, current) => acc + current, 0);
 
-      option["progress"] = (option.points / sum) * 100;
+      option["progress"] = ((option.points / sum) || 0) * 100;
       newValue[option.id] = option.progress;
     });
     percentageProgress = newValue;

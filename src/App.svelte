@@ -17,7 +17,7 @@
       id: 1,
       question: "Vote 1",
       options: [
-        { id: 1, title: "Vote 1 description", points: 0 },
+        { id: 1, title: "Vote 1 description", points: 5 },
         { id: 2, title: "Vote 2 desc", points: 10 },
         { id: 3, title: "Vote 3 desc", points: 20 },
       ],
@@ -26,7 +26,7 @@
 			id: 2,
 			question: "test question",
 			options: [
-				{ id: 5, title: "option 1", points: 0 },
+				{ id: 5, title: "option 1", points: 5 },
 				{ id: 4, title: "option 2", points: 20 },
 				{ id: 6, title: "option 3", points: 20 },
 			],
