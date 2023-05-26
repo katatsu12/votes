@@ -6,11 +6,16 @@ This is preview application to test svelte js framework in action.
 
 
 ## Get started
+Clone the repo...
+
+```bash
+git clone git@github.com:katatsu12/votes.git
+cd votes
+```
 
 Install the dependencies...
 
 ```bash
-cd votes
 npm install
 ```
 
