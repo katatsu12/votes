@@ -6,7 +6,7 @@
 
 <div class="vote-list">
   {#each votes as vote (vote.id)}
-    <VoteDetails {vote} />
+    <VoteDetails {vote} on:vote />
   {/each}
 </div>
 

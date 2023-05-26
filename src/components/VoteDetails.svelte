@@ -1,38 +1,42 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let vote;
-  let percentageProgress = {}
-  let modifyBy = 5;
+  let points = vote.options.map((option) => option.points);
+  let percentageProgress = {};
+
+  const dispatch = createEventDispatcher();
+
+  $: totalVotes = vote.options.map((option) => option.points).reduce((acc, current) => acc + current, 0);
 
   const progressPercentages = () => {
-    let points = vote.options.map(option => option.points)
-    let newValue = {}
-    vote.options.forEach(option => {
+    let newValue = {};
+    vote.options.forEach((option) => {
       let sum = points.reduce((acc, current) => acc + current, 0);
 
-      option['progress'] = (option.points / sum) * 100
-      newValue[option.id] = option.progress
+      option["progress"] = (option.points / sum) * 100;
+      newValue[option.id] = option.progress;
     });
-    percentageProgress = newValue
+    percentageProgress = newValue;
   };
   progressPercentages();
 
   const pointsManage = (e, action) => {
-    let progressElement = e.target.parentElement.querySelector('.progress')
-    let optionId = e.target.parentElement.dataset['optionId']
+    let optionId = e.target.parentElement.dataset["optionId"];
+    let option = vote.options.find((option) => option.id == optionId);
 
     if (action === "increase") {
-      let option = vote.options.find(option => option.id == optionId);
-      option.points = option.points + modifyBy;
+      dispatch("vote", { vote, option, action: "increase" });
       progressPercentages();
     } else if (action === "decrease") {
-      let option = vote.options.find(option => option.id == optionId);
-      option.points = option.points - modifyBy;
+      dispatch("vote", { vote, option, action: "decrease" });
       progressPercentages();
     }
   };
 </script>
 
 <div class="vote">
+  <span>Total Votes: {totalVotes}</span>
   <h3>{vote.question}</h3>
   <div class="options">
     {#each vote.options as option}
@@ -41,7 +45,10 @@
         <button on:click={(e) => pointsManage(e, "decrease")}>-</button>
         <div class="progress">
           <p>{option.points}</p>
-          <div class="bar" style="width: {`${percentageProgress[option.id]}%`}" />
+          <div
+            class="bar"
+            style="width: {`${percentageProgress[option.id]}%`}"
+          />
         </div>
         <button on:click={(e) => pointsManage(e, "increase")}>+</button>
       </div>
@@ -50,6 +57,11 @@
 </div>
 
 <style>
+  p {
+    position: relative;
+    z-index: 10;
+  }
+
   .vote {
     background-color: white;
     border-radius: 10px;
@@ -64,6 +76,7 @@
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin: 1em auto;
+    width: 60%;
   }
 
   .option {
