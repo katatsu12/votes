@@ -8,7 +8,7 @@
   function onSubmit(e) {
     let formData = new FormData(e.target);
     let data = {};
-    let options = {};
+    let options = [];
 
     for (let field of formData) {
       const [key, value] = field;
@@ -17,13 +17,16 @@
 
     for (const [key, value] of Object.entries(data)) {
       if (key.includes('option')) {
-        options['id'] = key.match(/-(\d+)/)[1];
-        options['title'] = value;
-        options['points'] = 0;
+        let option = {};
+
+        option['id'] = key.match(/-(\d+)/)[1];
+        option['title'] = value;
+        option['points'] = 0;
+        options.push(option);
       }
     }
 
-    fields = { id: Math.random(), question: data['question'], options: [options] };
+    fields = { id: Math.random(), question: data['question'], options };
     dispatch("add", fields);
   }
 

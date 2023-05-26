@@ -39,6 +39,7 @@
     activeItem = "Current Vote";
   };
 
+
   const handleVotes = (e) => {
 		let { vote, option, action } = e.detail;
 
