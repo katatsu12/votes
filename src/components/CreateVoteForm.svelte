@@ -6,16 +6,25 @@
   let dispatch = createEventDispatcher();
 
   function onSubmit(e) {
-    const formData = new FormData(e.target);
-    const data = {};
+    let formData = new FormData(e.target);
+    let data = {};
+    let options = {};
 
     for (let field of formData) {
       const [key, value] = field;
       data[key] = value;
     }
-    fields = { votes: 0, id: Math.random(), ...data };
+
+    for (const [key, value] of Object.entries(data)) {
+      if (key.includes('option')) {
+        options['id'] = key.match(/-(\d+)/)[1];
+        options['title'] = value;
+        options['points'] = 0;
+      }
+    }
+
+    fields = { id: Math.random(), question: data['question'], options: [options] };
     dispatch("add", fields);
-    console.log(fields);
   }
 
   function addOption(e) {

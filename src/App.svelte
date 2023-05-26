@@ -37,7 +37,6 @@
     let vote = e.detail;
     votes = [vote, ...votes];
     activeItem = "Current Vote";
-    console.log(votes);
   };
 
   const handleVotes = (e) => {
